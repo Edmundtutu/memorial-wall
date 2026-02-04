@@ -5,7 +5,7 @@ import { getMemoryOfTheDay } from "@/data/memories";
 interface MemoryWallProps {
   memories: Memory[];
   reflections: Reflection[];
-  onAddReflection: (memoryId: string, content: string, authorName?: string) => void;
+  onAddReflection: (memoryId: number, content: string, authorName?: string) => void;
 }
 
 export function MemoryWall({ memories, reflections, onAddReflection }: MemoryWallProps) {
@@ -13,13 +13,13 @@ export function MemoryWall({ memories, reflections, onAddReflection }: MemoryWal
 
   // Chronological order - oldest first, newest at bottom
   const sortedMemories = [...memories].sort(
-    (a, b) => a.createdAt.getTime() - b.createdAt.getTime()
+    (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
   );
 
-  const getReflectionsForMemory = (memoryId: string): Reflection[] => {
+  const getReflectionsForMemory = (memoryId: number): Reflection[] => {
     return reflections
       .filter((r) => r.memoryId === memoryId)
-      .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+      .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
   };
 
   if (memories.length === 0) {

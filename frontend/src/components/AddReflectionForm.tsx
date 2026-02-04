@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 interface AddReflectionFormProps {
-  memoryId: string;
+  memoryId: number;
   onSubmit: (content: string, authorName?: string) => void;
 }
 

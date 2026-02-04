@@ -1,16 +1,17 @@
 export interface Memory {
-  id: string;
+  id: number;
   type: "text" | "image" | "video" | "quote";
   content: string;
   mediaUrl?: string;
   authorName?: string;
-  createdAt: Date;
+  createdAt: string;
+  reflectionsCount?: number;
 }
 
 export interface Reflection {
-  id: string;
-  memoryId: string;
+  id: number;
+  memoryId: number;
   content: string;
   authorName?: string;
-  createdAt: Date;
+  createdAt: string;
 }
