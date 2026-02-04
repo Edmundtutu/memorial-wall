@@ -276,5 +276,93 @@ class MemorialSeeder extends Seeder
             'author_name' => 'Sophie',
             'created_at' => '2024-03-29 14:40:00',
         ]);
+
+        // Create third memorial - Fr. Mukasa
+        $mukasa = Memorial::create([
+            'name' => 'Rev. Fr. Emmanuel Mukasa',
+            'slug' => 'fr-emmanuel-mukasa',
+            'date_of_birth' => '1950-05-10',
+            'date_of_passing' => '2026-02-02',
+            'dedication' => "Rev. Fr. Emmanuel Mukasa is remembered as a devoted priest and educator whose life was marked by discipline, humility, and a deep commitment to priestly formation. Through quiet service, intellectual rigor, and pastoral care, he shaped many lives and left a lasting legacy within the Church.",
+            'cover_image' => "http://localhost:8000/storage/profiles/fr-mukasa-coverimage.jpeg",
+            'avatar' => "http://localhost:8000/storage/profiles/fr-mukasa-avatar.png",
+        ]);
+
+        // Fr. Mukasa's memories
+        $mmem1 = Memory::create([
+            'memorial_id' => $mukasa->id,
+            'type' => 'quote',
+            'content' => 'Many of us learned discipline, patience, and love for the Church through his Latin classes. He taught more than a language — he taught a way of thinking.',
+            'author_name' => 'Former Seminarian',
+            'created_at' => '2024-01-10 10:00:00',
+        ]);
+
+        Reflection::create([
+            'memory_id' => $mmem1->id,
+            'content' => 'I remember those classes well. The precision he demanded in translation taught me to think carefully, to consider every word. That discipline has served me well in ministry.',
+            'author_name' => 'Fr. Michael',
+            'created_at' => '2024-01-12 14:30:00',
+        ]);
+
+        $mmem2 = Memory::create([
+            'memorial_id' => $mukasa->id,
+            'type' => 'text',
+            'content' => 'As Vice-Rector, Fr. Mukasa carried his responsibilities quietly and faithfully. He believed formation was built through consistency, humility, and example rather than words alone.',
+            'author_name' => 'Colleague',
+            'created_at' => '2024-01-18 09:15:00',
+        ]);
+
+        Reflection::create([
+            'memory_id' => $mmem2->id,
+            'content' => 'His presence was steady, his example clear. He didn\'t need to lecture about humility—he lived it every day.',
+            'author_name' => 'Fr. Joseph',
+            'created_at' => '2024-01-20 11:20:00',
+        ]);
+
+        $mmem3 = Memory::create([
+            'memorial_id' => $mukasa->id,
+            'type' => 'quote',
+            'content' => 'He demanded excellence, not to intimidate, but because he believed young men preparing for priesthood were capable of great intellectual and spiritual depth.',
+            'author_name' => 'Former Student',
+            'created_at' => '2024-01-25 15:45:00',
+        ]);
+
+        Reflection::create([
+            'memory_id' => $mmem3->id,
+            'content' => 'At the time, I thought he was too strict. Now I understand—he saw potential in us that we didn\'t yet see in ourselves.',
+            'author_name' => 'Fr. David',
+            'created_at' => '2024-01-27 10:10:00',
+        ]);
+
+        $mmem4 = Memory::create([
+            'memorial_id' => $mukasa->id,
+            'type' => 'text',
+            'content' => 'His years of service at Kisubi Minor Seminary and Nyenga remain a quiet testimony to a life given fully to formation, learning, and the Church.',
+            'author_name' => 'Community Member',
+            'created_at' => '2024-02-01 13:30:00',
+        ]);
+
+        Reflection::create([
+            'memory_id' => $mmem4->id,
+            'content' => 'The impact of his work extends far beyond those institutions. The priests he helped form are now serving communities across the country.',
+            'author_name' => 'Bishop Christopher',
+            'created_at' => '2024-02-03 16:00:00',
+        ]);
+
+        Memory::create([
+            'memorial_id' => $mukasa->id,
+            'type' => 'text',
+            'content' => 'I will never forget how he would stay late after classes, looking out who is in the wrong place at the wrong time.He never made anyone feel inadequate.',
+            'author_name' => 'Former Student',
+            'created_at' => '2024-02-08 09:20:00',
+        ]);
+
+        Memory::create([
+            'memorial_id' => $mukasa->id,
+            'type' => 'quote',
+            'content' => 'Formation is not about creating perfect students—it is about forming faithful servants of God.',
+            'author_name' => 'What he often said to new formators',
+            'created_at' => '2024-02-12 11:45:00',
+        ]);
     }
 }
