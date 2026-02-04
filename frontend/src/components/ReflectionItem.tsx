@@ -16,8 +16,8 @@ export function ReflectionItem({ reflection }: ReflectionItemProps) {
             <span aria-hidden="true">·</span>
           </>
         )}
-        <time dateTime={reflection.createdAt.toISOString()}>
-          {formatMemoryDate(reflection.createdAt)}
+        <time dateTime={reflection.createdAt}>
+          {formatMemoryDate(new Date(reflection.createdAt))}
         </time>
       </div>
     </div>

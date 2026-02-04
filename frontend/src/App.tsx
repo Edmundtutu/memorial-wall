@@ -18,10 +18,16 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/moments" element={<Moments />} />
-          <Route path="/quotes" element={<Quotes />} />
-          <Route path="/add" element={<AddMemory />} />
+          {/* Default memorial route - for now, redirect to eleanor-thompson */}
+          <Route path="/" element={<Index slug="eleanor-thompson" />} />
+          <Route path="/memorial/:slug" element={<Index />} />
+          <Route path="/memorial/:slug/moments" element={<Moments />} />
+          <Route path="/memorial/:slug/quotes" element={<Quotes />} />
+          <Route path="/memorial/:slug/add" element={<AddMemory />} />
+          {/* Legacy routes for backwards compatibility */}
+          <Route path="/moments" element={<Moments slug="eleanor-thompson" />} />
+          <Route path="/quotes" element={<Quotes slug="eleanor-thompson" />} />
+          <Route path="/add" element={<AddMemory slug="eleanor-thompson" />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

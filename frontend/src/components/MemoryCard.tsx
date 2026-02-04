@@ -3,12 +3,13 @@ import { formatMemoryDate } from "@/lib/date";
 import { ReflectionList } from "./ReflectionList";
 import { AddReflectionForm } from "./AddReflectionForm";
 import { cn } from "@/lib/utils";
+import { useEffect, useRef, useState } from "react";
 
 interface MemoryCardProps {
   memory: Memory;
   reflections: Reflection[];
   isHighlighted?: boolean;
-  onAddReflection: (memoryId: string, content: string, authorName?: string) => void;
+  onAddReflection: (memoryId: number, content: string, authorName?: string) => void;
 }
 
 export function MemoryCard({
@@ -17,6 +18,30 @@ export function MemoryCard({
   isHighlighted = false,
   onAddReflection,
 }: MemoryCardProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isVideoVisible, setIsVideoVisible] = useState(false);
+
+  useEffect(() => {
+    // Lazy load videos when they enter viewport
+    if (memory.type === 'video' && videoRef.current) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setIsVideoVisible(true);
+              observer.disconnect();
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      observer.observe(videoRef.current);
+
+      return () => observer.disconnect();
+    }
+  }, [memory.type]);
+
   const handleAddReflection = (content: string, authorName?: string) => {
     onAddReflection(memory.id, content, authorName);
   };
@@ -43,18 +68,22 @@ export function MemoryCard({
             alt=""
             className="w-full max-h-[400px] object-cover"
             style={{ borderRadius: "var(--radius)" }}
+            loading="lazy"
           />
         </figure>
       )}
 
       {memory.mediaUrl && memory.type === "video" && (
-        <figure className="mt-6">
-          <video
-            src={memory.mediaUrl}
-            controls
-            className="w-full max-h-[400px]"
-            style={{ borderRadius: "var(--radius)" }}
-          />
+        <figure className="mt-6" ref={videoRef}>
+          {isVideoVisible && (
+            <video
+              src={memory.mediaUrl}
+              controls
+              preload="metadata"
+              className="w-full max-h-[400px]"
+              style={{ borderRadius: "var(--radius)" }}
+            />
+          )}
         </figure>
       )}
 
@@ -66,8 +95,8 @@ export function MemoryCard({
             <span aria-hidden="true">·</span>
           </>
         )}
-        <time dateTime={memory.createdAt.toISOString()}>
-          {formatMemoryDate(memory.createdAt)}
+        <time dateTime={memory.createdAt}>
+          {formatMemoryDate(new Date(memory.createdAt))}
         </time>
       </footer>
 

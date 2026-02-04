@@ -1,29 +1,68 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { MemoryWall } from "@/components/MemoryWall";
-import { sampleMemories, sampleReflections } from "@/data/memories";
 import { Memory, Reflection } from "@/types/memory";
+import { apiClient } from "@/lib/api";
 
-const Quotes = () => {
-  const [memories] = useState<Memory[]>(
-    sampleMemories.filter((m) => m.type === "quote")
-  );
-  const [reflections, setReflections] = useState<Reflection[]>(sampleReflections);
+interface QuotesProps {
+  slug?: string;
+}
 
-  const handleAddReflection = (
-    memoryId: string,
+const Quotes = ({ slug: propSlug }: QuotesProps) => {
+  const { slug: paramSlug } = useParams<{ slug: string }>();
+  const slug = paramSlug || propSlug || 'eleanor-thompson';
+  
+  const [memories, setMemories] = useState<Memory[]>([]);
+  const [reflections, setReflections] = useState<Reflection[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const memoriesData = await apiClient.getMemories(slug);
+        const filtered = memoriesData.filter((m) => m.type === "quote");
+        setMemories(filtered);
+        
+        const reflectionsPromises = filtered.map(m => apiClient.getReflections(m.id));
+        const reflectionsData = await Promise.all(reflectionsPromises);
+        setReflections(reflectionsData.flat());
+      } catch (err) {
+        console.error('Failed to load data:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [slug]);
+
+  const handleAddReflection = async (
+    memoryId: number,
     content: string,
     authorName?: string
   ) => {
-    const newReflection: Reflection = {
-      id: `r${Date.now()}`,
-      memoryId,
-      content,
-      authorName,
-      createdAt: new Date(),
-    };
-    setReflections((prev) => [...prev, newReflection]);
+    try {
+      const newReflection = await apiClient.createReflection(memoryId, {
+        content,
+        authorName,
+      });
+      setReflections((prev) => [...prev, newReflection]);
+    } catch (err) {
+      console.error('Failed to add reflection:', err);
+    }
   };
+
+  if (isLoading) {
+    return (
+      <Layout>
+        <div className="text-center py-16">
+          <p className="font-serif text-lg text-muted-foreground">Loading...</p>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
