@@ -42,7 +42,7 @@ export function MemoryWall({ memories, reflections, onAddReflection }: MemoryWal
           key={memory.id}
           memory={memory}
           reflections={getReflectionsForMemory(memory.id)}
-          isHighlighted={memory.id === memoryOfTheDayId}
+          isHighlighted={memoryOfTheDayId != null && memory.id.toString() === memoryOfTheDayId}
           onAddReflection={onAddReflection}
         />
       ))}

@@ -12,10 +12,10 @@ export function ReflectionList({ reflections }: ReflectionListProps) {
 
   return (
     <div className="mt-6 pt-6 border-t border-border">
-      <h3 className="font-sans text-sm text-muted-foreground mb-2">
+      <h3 className="font-sans text-xs text-muted-foreground mb-3 uppercase tracking-wide">
         Reflections
       </h3>
-      <div className="divide-y divide-border">
+      <div className="pl-6 sm:pl-8 border-l border-border/50 divide-y divide-border/50">
         {reflections.map((reflection) => (
           <ReflectionItem key={reflection.id} reflection={reflection} />
         ))}

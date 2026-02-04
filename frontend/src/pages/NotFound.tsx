@@ -11,7 +11,7 @@ const NotFound = () => {
           to="/" 
           className="font-sans text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
-          Return to memories
+          Return to home
         </Link>
       </div>
     </div>

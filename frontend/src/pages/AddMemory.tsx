@@ -3,13 +3,23 @@ import { Layout } from "@/components/Layout";
 import { AddMemoryForm } from "@/components/AddMemoryForm";
 import { apiClient } from "@/lib/api";
 
-interface AddMemoryProps {
-  slug?: string;
-}
+const AddMemory = () => {
+  const { slug } = useParams<{ slug: string }>();
 
-const AddMemory = ({ slug: propSlug }: AddMemoryProps) => {
-  const { slug: paramSlug } = useParams<{ slug: string }>();
-  const slug = paramSlug || propSlug || 'eleanor-thompson';
+  if (!slug) {
+    return (
+      <Layout showFab={false}>
+        <div className="text-center py-16">
+          <p className="font-serif text-lg text-destructive mb-4">
+            Memorial slug is required
+          </p>
+          <p className="font-sans text-sm text-muted-foreground">
+            Please provide a valid memorial slug in the URL.
+          </p>
+        </div>
+      </Layout>
+    );
+  }
 
   const handleSubmit = async (data: {
     type: string;

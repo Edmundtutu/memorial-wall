@@ -22,6 +22,7 @@ class MemorialSeeder extends Seeder
             'date_of_passing' => '2023-12-20',
             'dedication' => 'A beloved mother, grandmother, teacher, and friend. Eleanor touched countless lives with her gentle wisdom, endless patience, and quiet acts of kindness. Her garden bloomed with care, her home filled with warmth, and her heart always had room for one more.',
             'cover_image' => 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&auto=format&fit=crop&q=80',
+            'avatar' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&auto=format&fit=crop&q=80',
         ]);
 
         // Eleanor's memories
@@ -154,6 +155,7 @@ class MemorialSeeder extends Seeder
             'date_of_passing' => '2024-01-08',
             'dedication' => 'Jamie lived with courage, laughed often, and loved deeply. A devoted father, loyal friend, and passionate musician. He faced his illness with grace and humor, making sure those around him felt cared for even in his final days. The music plays on.',
             'cover_image' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80',
+            'avatar' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80',
         ]);
 
         // James's memories

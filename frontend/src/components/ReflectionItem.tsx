@@ -7,7 +7,7 @@ interface ReflectionItemProps {
 
 export function ReflectionItem({ reflection }: ReflectionItemProps) {
   return (
-    <div className="py-4">
+    <div className="py-4 first:pt-0 last:pb-0">
       <p className="text-reflection text-foreground">{reflection.content}</p>
       <div className="mt-3 flex items-center gap-2 meta">
         {reflection.authorName && (

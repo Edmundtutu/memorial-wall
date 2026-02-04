@@ -8,6 +8,7 @@ export interface Memorial {
   dateOfPassing?: string;
   dedication?: string;
   coverImage?: string;
+  avatar?: string;
   createdAt: string;
 }
 

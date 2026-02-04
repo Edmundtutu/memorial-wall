@@ -23,6 +23,7 @@ class MemorialController extends Controller
             'dateOfPassing' => $memorial->date_of_passing?->format('Y-m-d'),
             'dedication' => $memorial->dedication,
             'coverImage' => $memorial->cover_image,
+            'avatar' => $memorial->avatar,
             'createdAt' => $memorial->created_at->toIso8601String(),
         ]);
     }

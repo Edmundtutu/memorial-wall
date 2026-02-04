@@ -16,6 +16,7 @@ class Memorial extends Model
         'date_of_passing',
         'dedication',
         'cover_image',
+        'avatar',
     ];
 
     protected $casts = [
