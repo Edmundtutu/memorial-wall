@@ -69,7 +69,10 @@ export function Layout({ children, showFab = true, memorial }: LayoutProps) {
             </div>
           )}
           
-          <Link to="/" className="block">
+          <Link
+            to={memorial ? `/memorial/${memorial.slug}/add` : "/"}
+            className="block"
+          >
             <p className="font-serif text-lg sm:text-xl text-muted-foreground text-center sm:text-left">
               <span
                 className="inline-block px-3 py-1 rounded-full bg-muted/60 font-serif text-base sm:text-lg text-muted-foreground/80 tracking-wide shadow-[0_1px_4px_0_rgba(80,80,100,0.04)] border border-border/60 backdrop-blur-[2px] text-center"

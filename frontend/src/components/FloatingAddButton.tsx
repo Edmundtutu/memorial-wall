@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Plus } from "lucide-react";
 import { useScrollDirection } from "@/hooks/useScrollDirection";
 import { cn } from "@/lib/utils";
@@ -6,10 +6,16 @@ import { cn } from "@/lib/utils";
 export function FloatingAddButton() {
   const { scrollDirection, isAtTop } = useScrollDirection();
   const isHidden = scrollDirection === "down" && !isAtTop;
+  const { slug } = useParams<{ slug?: string }>();
+
+  // Only show the floating button when we're on a specific memorial
+  if (!slug) {
+    return null;
+  }
 
   return (
     <Link
-      to="/add"
+      to={`/memorial/${slug}/add`}
       className={cn(
         "fixed right-4 bottom-20 z-50 sm:hidden",
         "flex items-center justify-center",

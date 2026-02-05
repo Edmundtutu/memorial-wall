@@ -10,10 +10,9 @@ interface MemoryWallProps {
 
 export function MemoryWall({ memories, reflections, onAddReflection }: MemoryWallProps) {
   const memoryOfTheDayId = getMemoryOfTheDay(memories);
-
-  // Chronological order - oldest first, newest at bottom
+  // Sort by most recent - newest first, oldest at bottom
   const sortedMemories = [...memories].sort(
-    (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );
 
   const getReflectionsForMemory = (memoryId: number): Reflection[] => {

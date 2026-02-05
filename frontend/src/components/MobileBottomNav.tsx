@@ -2,16 +2,22 @@ import { NavLink } from "@/components/NavLink";
 import { Home, Image, Quote } from "lucide-react";
 import { useScrollDirection } from "@/hooks/useScrollDirection";
 import { cn } from "@/lib/utils";
-
-const navItems = [
-  { to: "/", label: "Memories", icon: Home },
-  { to: "/moments", label: "Moments", icon: Image },
-  { to: "/quotes", label: "Quotes", icon: Quote },
-];
+import { useParams } from "react-router-dom";
 
 export function MobileBottomNav() {
   const { scrollDirection, isAtTop } = useScrollDirection();
   const isHidden = scrollDirection === "down" && !isAtTop;
+  const { slug } = useParams<{ slug?: string }>();
+
+  const navItems = slug
+    ? [
+        { to: `/memorial/${slug}`, label: "Memories", icon: Home },
+        { to: `/memorial/${slug}/moments`, label: "Moments", icon: Image },
+        { to: `/memorial/${slug}/quotes`, label: "Quotes", icon: Quote },
+      ]
+    : [
+        { to: "/", label: "Home", icon: Home, end: true },
+      ];
 
   return (
     <nav
@@ -27,7 +33,7 @@ export function MobileBottomNav() {
           <NavLink
             key={item.to}
             to={item.to}
-            end={item.to === "/"}
+            end={item.end}
             className="flex flex-col items-center gap-1 text-muted-foreground transition-colors duration-200"
             activeClassName="text-foreground"
           >
